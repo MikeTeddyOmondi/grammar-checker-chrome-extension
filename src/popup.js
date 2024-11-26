@@ -8,7 +8,7 @@ const outputElement = document.getElementById("output");
 inputElement.addEventListener("input", (event) => {
   // Bundle the input data into a message.
   const message = {
-    action: "classify",
+    action: "grammarSuggest",
     text: event.target.value,
   };
 

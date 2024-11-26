@@ -10,8 +10,8 @@ env.allowLocalModels = false;
 env.backends.onnx.wasm.numThreads = 1;
 
 class PipelineSingleton {
-  static task = "text-classification";
-  static model = "Xenova/distilbert-base-uncased-finetuned-sst-2-english";
+  static task = "text2text-generation";
+  static model = "Xenova/t5-base-grammar-correction";
   static instance = null;
 
   static async getInstance(progress_callback = null) {
@@ -24,7 +24,7 @@ class PipelineSingleton {
 }
 
 // Create generic classify function, which will be reused for the different types of events.
-const classify = async (text) => {
+const grammarSuggestion = async (text) => {
   // Get the pipeline instance. This will load and build the model when run for the first time.
   let model = await PipelineSingleton.getInstance((data) => {
     // You can track the progress of the pipeline creation here.
@@ -44,8 +44,8 @@ const classify = async (text) => {
 chrome.runtime.onInstalled.addListener(function () {
   // Register a context menu item that will only show up for selection text.
   chrome.contextMenus.create({
-    id: "classify-selection",
-    title: 'Classify "%s"',
+    id: "grammar-suggestion",
+    title: 'Grammar Suggestion "%s"',
     contexts: ["selection"],
   });
 });
@@ -53,10 +53,10 @@ chrome.runtime.onInstalled.addListener(function () {
 // Perform inference when the user clicks a context menu
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   // Ignore context menu clicks that are not for classifications (or when there is no input)
-  if (info.menuItemId !== "classify-selection" || !info.selectionText) return;
+  if (info.menuItemId !== "grammar-suggestion" || !info.selectionText) return;
 
   // Perform classification on the selected text
-  let result = await classify(info.selectionText);
+  let result = await grammarSuggestion(info.selectionText);
 
   // Do something with the result
   chrome.scripting.executeScript({
@@ -77,12 +77,12 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // Listen for messages from the UI, process it, and send the result back.
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   console.log("sender", sender);
-  if (message.action !== "classify") return; // Ignore messages that are not meant for classification.
+  if (message.action !== "grammarSuggest") return; // Ignore messages that are not meant for classification.
 
   // Run model prediction asynchronously
   (async function () {
     // Perform classification
-    let result = await classify(message.text);
+    let result = await grammarSuggestion(message.text);
 
     // Send response back to UI
     sendResponse(result);

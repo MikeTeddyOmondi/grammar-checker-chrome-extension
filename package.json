@@ -1,7 +1,7 @@
 {
-    "name": "extension",
+    "name": "better-grammar-suggestions",
     "version": "0.0.1",
-    "description": "Transformers.js | Sample browser extension",
+    "description": "Get suggestions to write better English in your inputs.",
     "scripts": {
         "build": "webpack",
         "dev": "webpack --watch"
@@ -16,6 +16,7 @@
         "webpack-cli": "^5.1.4"
     },
     "dependencies": {
+        "@huggingface/transformers": "^3.0.2",
         "@xenova/transformers": "^2.0.0"
     }
 }
