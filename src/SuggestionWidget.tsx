@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { suggestionPipeline } from "./transformers";
+import { SuggestionPipeline } from "./transformers";
 import { Text2TextGenerationOutput } from "@xenova/transformers";
 
 const SuggestionWidget = ({ text }: { text: string }) => {
@@ -8,8 +8,17 @@ const SuggestionWidget = ({ text }: { text: string }) => {
   >([]);
 
   const handleSuggestions = async () => {
-    const result = await suggestionPipeline(text);
-    setSuggestions(result);
+    try {
+      // const result = await suggestionPipeline(text);
+      // setSuggestions(result);
+      console.log("Fetching suggestions for:", text);
+      const sp = await SuggestionPipeline.getInstance();
+      const result = await sp(text);
+      console.log("Fetched suggestions:", result);
+      setSuggestions(result);
+    } catch (error) {
+      console.error("Error fetching suggestions:", error);
+    }
   };
 
   return (

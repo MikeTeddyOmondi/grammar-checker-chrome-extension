@@ -4,7 +4,7 @@ import SuggestionWidget from './SuggestionWidget'
 function App() {
   return (
     <>
-      <SuggestionWidget text={''} />
+      <SuggestionWidget text={'hello'} />
     </>
   )
 }
