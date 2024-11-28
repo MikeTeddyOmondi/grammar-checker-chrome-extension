@@ -15,6 +15,15 @@ inputElement.addEventListener("input", (event) => {
   // Send this message to the service worker.
   chrome.runtime.sendMessage(message, (response) => {
     // Handle results returned by the service worker (`background.js`) and update the popup's UI.
-    outputElement.innerText = JSON.stringify(response, null, 2);
+    if (Array.isArray(response.data) && response.data.length > 0) {
+      // Handle the case where the response contains an array
+      outputElement.innerText = response.data[0].generated_text;
+    } else if (response.error && response.estimated_time) {
+      // Handle the case where the response contains error and estimated fields
+      outputElement.innerText = `Error: ${response.error}, Estimated: ${response.estimated}`;
+    } else {
+      // Fallback for unexpected response structures
+      outputElement.innerText = "Unexpected response format";
+    }
   });
 });

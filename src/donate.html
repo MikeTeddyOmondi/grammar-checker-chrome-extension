@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Better Grammar Suggestions | Extension</title>
+    <title>Better Grammar Suggestions - Donate | Extension</title>
 
     <!-- Load styles -->
     <link rel="stylesheet" href="css/pico.min.css" />
@@ -32,12 +32,22 @@
         </ul>
       </nav>
       <article>
-        <!-- <header>Header</header> -->
+        <header>Donate</header>
         <form>
-          <input id="text" placeholder="Enter your text here..." />
+          <fieldset>
+            <label>
+              Email
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                autocomplete="email"
+              />
+            </label>
+          </fieldset>
+
+          <input type="submit" value="Donate" />
         </form>
-        <br />
-        <p id="output"></p>
         <footer>
           <center>
             <span

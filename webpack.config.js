@@ -23,6 +23,16 @@ const config = {
       template: "./src/popup.html",
       filename: "popup.html",
     }),
+    // Generate tl-dr.html
+    new HtmlWebpackPlugin({
+      template: "./src/faq.html",
+      filename: "faq.html",
+    }),
+    // Generate donate.html
+    new HtmlWebpackPlugin({
+      template: "./src/donate.html",
+      filename: "donate.html",
+    }),
     new CopyPlugin({
       patterns: [
         {
