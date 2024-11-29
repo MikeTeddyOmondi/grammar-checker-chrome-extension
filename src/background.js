@@ -1,5 +1,6 @@
 // background.js - Handles requests from the UI, runs the model, then sends back a response
 
+import QRCode from "qrcode";
 // import { pipeline, env } from "@xenova/transformers";
 
 // Skip initial check for local models, since we are not loading any local models.
@@ -51,11 +52,38 @@ const grammarSuggestion = async (text) => {
   });
 
   let data = await response.json();
-  
+
   console.log("data: ", data);
   // if (data.error) return { errorMessage: data.error };
 
   return data;
+};
+
+// Make a donation request
+const donationRequest = async (data) => {
+  if (data === null) return;
+
+  const WORKER_API =
+    "https://better-grammar-suggestions.rancko-solutions-llc.workers.dev/donate";
+  let response = await fetch(WORKER_API, {
+    method: "POST",
+    headers: {
+      contenType: "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  let responseData = await response.json();
+  console.log({ responseData });
+
+  return responseData;
+};
+
+// Make a QRCodeRequest
+const qrCodeRequest = async (data) => {
+  console.log({ qrcodeData: data });
+  let qrcode = await QRCode.toString(data.url);
+  return qrcode;
 };
 
 ////////////////////// 1. Context Menus //////////////////////
@@ -111,6 +139,30 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   // return true to indicate we will send a response asynchronously
   // see https://stackoverflow.com/a/46628145 for more information
+  return true;
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log("donationReqSender", sender);
+  if (message.action !== "donationRequest") return;
+
+  (async function () {
+    let result = await donationRequest(message.data);
+    sendResponse(result);
+  })();
+
+  return true;
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log("qrCodeSender", sender);
+  if (message.action !== "qrCodeRequest") return;
+
+  (async function () {
+    let result = await qrCodeRequest(message.data);
+    sendResponse(result);
+  })();
+
   return true;
 });
 //////////////////////////////////////////////////////////////

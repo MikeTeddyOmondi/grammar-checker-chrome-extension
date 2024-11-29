@@ -33,21 +33,54 @@
       </nav>
       <article>
         <header>Donate</header>
-        <form>
+        <article id="spanMsg" style="display: none"></article>
+        <form id="donation-form">
           <fieldset>
             <label>
               Email
               <input
+                id="donation-email"
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Email (Optional)"
                 autocomplete="email"
+              />
+            </label>
+            <small id="email-helper">
+              We'll never share your email with anyone else.
+            </small>
+            <label>
+              Amount
+              <input
+                id="donation-amount"
+                type="number"
+                name="amount"
+                placeholder="Amount (Kshs.)"
+                autocomplete="amount"
               />
             </label>
           </fieldset>
 
-          <input type="submit" value="Donate" />
+          <button
+            type="submit"
+            class="contrast"
+            id="donation-submit-btn"
+            aria-busy="false"
+          >
+            Donate
+          </button>
         </form>
+        <div id="checkout-div" style="display: none">
+          <center>
+            <canvas
+              id="checkout-qrcode"
+              width="300"
+              height="300"
+              style="border: 1px solid #000"
+            >
+            </canvas>
+          </center>
+        </div>
         <footer>
           <center>
             <span

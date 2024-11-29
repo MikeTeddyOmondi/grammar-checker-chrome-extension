@@ -17,6 +17,7 @@
     "wrangler": "^3.60.3"
   },
   "dependencies": {
-    "hono": "^4.6.12"
+    "hono": "^4.6.12",
+    "intasend-node": "^1.0.8"
   }
 }
