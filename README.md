@@ -1,12 +1,18 @@
 
 # Better Grammar Suggestions (Powered by HuggingFace 🤗 & Transformers.js) | Browser extension
 
-An example project to show how to run 🤗 Transformers in a browser extension. Although we only provide instructions for running in Chrome, it should be similar for other browsers.
+A chrome browser extenstion project to show how to run 🤗 Transformers in a browser extension. Although we only provide instructions for running in Chrome, it should be similar for other browsers.
+
+## Technologies Used 
+
+1. Cloudflare  Workers as the application programming interface (API) serving the model to the browser extension. 
+2. Hugging Face Model(s): `prithivida/grammar_error_correcter_v1` for inferencing sentences.
+3. PicoCSS - Styling CSS Framework
 
 ## Getting Started
 1. Clone the repo and enter the project directory:
     ```bash
-    git clone https://github.com/huggingface/transformers.js.git
+    git clone https://github.com/MikeTeddyOmondi/grammar-checker-chrome-extension.git
     cd transformers.js/examples/extension/
     ```
 1. Install the necessary dependencies:
@@ -23,7 +29,7 @@ An example project to show how to run 🤗 Transformers in a browser extension. 
 
 1. That's it! You should now be able to open the extension's popup and use the model in your browser!
 
-## Editing the template
+## Editing the source...
 
 We recommend running `npm run dev` while editing the template as it will rebuild the project when changes are made. 
 
