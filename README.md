@@ -3,6 +3,8 @@
 
 A chrome browser extenstion project to show how to run 🤗 Transformers in a browser extension. Although we only provide instructions for running in Chrome, it should be similar for other browsers.
 
+[DEMO - Better Grammar Suggestions (LinkedIn Post)](https://www.linkedin.com/posts/miketeddyomondi_intasend-activity-7269101504366579714-FPhi?utm_source=share&utm_medium=member_desktop)
+
 ## Technologies Used 
 
 1. Cloudflare  Workers as the application programming interface (API) serving the model to the browser extension. 

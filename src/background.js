@@ -63,8 +63,9 @@ const grammarSuggestion = async (text) => {
 const donationRequest = async (data) => {
   if (data === null) return;
 
+  // https://better-grammar-suggestions.rancko-solutions-llc.workers.dev
   const WORKER_API =
-    "https://better-grammar-suggestions.rancko-solutions-llc.workers.dev/donate";
+    "http://localhost:8787/donate";
   let response = await fetch(WORKER_API, {
     method: "POST",
     headers: {

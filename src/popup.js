@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const donationAmount = document.getElementById("donation-amount");
     const checkoutDiv = document.getElementById("checkout-div");
     const checkoutQRCode = document.getElementById("checkout-qrcode");
+    const checkoutLinkDiv = document.getElementById("checkout-link");
 
     donationForm.addEventListener("submit", donationRequest);
 
@@ -81,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log({ qrCodeResponse: response });
             checkoutDiv.style.display = "block";
             renderSvgToCanvas(response, checkoutQRCode);
+            checkoutLinkDiv.innerHTML += `<a href=${url} target="_blank">Checkout Link</a>`;
           });
           return;
         } else {
